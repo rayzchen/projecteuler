@@ -1,28 +1,20 @@
 """
 Prime sieve taken from q7.py
+80000 selected from estimating 80*1000 to be the limit
 
 """
 
-primes = [2]
-limit = 1
-counter = 0
-for i in range(3, 80000, 2):
-    if counter == 0:
-        limit += 2
-        counter = 2 * limit + 2
-    counter -= 1
+import math
 
-    is_prime = True
-    for p in primes:
-        if p > limit:
-            break
-        if i % p == 0:
-            is_prime = False
-            break
+limit = 80000
+sieve = [False] + [True] * (limit // 2 - 1)
+maximum = int((math.sqrt(limit) - 1) / 2)
+for p in range(1, maximum + 1):
+    if sieve[p]:
+        for i in range(2 * p * (p + 1), len(sieve), 2 * p + 1):
+            sieve[i] = False
 
-    if is_prime:
-        primes.append(i)
-
+primes = [2] + [2 * i + 1 for i in range(len(sieve)) if sieve[i]]
 prime_check = set(primes)
 longest_pair = None
 longest_length = 0

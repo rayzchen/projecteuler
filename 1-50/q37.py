@@ -3,49 +3,39 @@ Prime sieve taken from q7.py
 
 """
 
-primes = [2]
-limit = 1
-counter = 0
-for i in range(3, 1000000, 2):
-    if counter == 0:
-        limit += 2
-        counter = 2 * limit + 2
-    counter -= 1
+import math
 
-    is_prime = True
-    for p in primes:
-        if p > limit:
-            break
-        if i % p == 0:
-            is_prime = False
-            break
+limit = 1000000
+sieve = [False] + [True] * (limit // 2 - 1)
+maximum = int((math.sqrt(limit) - 1) / 2)
+for p in range(1, maximum + 1):
+    if sieve[p]:
+        for i in range(2 * p * (p + 1), len(sieve), 2 * p + 1):
+            sieve[i] = False
 
-    if is_prime:
-        primes.append(i)
+primes = ["2"] + [str(2 * i + 1) for i in range(len(sieve)) if sieve[i]]
 
 truncatable = []
-checked = set(str(p) for p in primes)
+checked = set(primes)
 for prime in primes[4:]:
-    string = str(prime)
-    length = len(string)
+    length = len(prime)
     is_truncatable = True
 
     for i in range(length - 1):
-        if string[:length - i - 1] not in checked:
+        if prime[:length - i - 1] not in checked:
             is_truncatable = False
             break
     if not is_truncatable:
         continue
 
-    p = string
     for i in range(length - 1):
-        if string[i + 1:] not in checked:
+        if prime[i + 1:] not in checked:
             is_truncatable = False
             break
     if not is_truncatable:
         continue
 
-    truncatable.append(prime)
+    truncatable.append(int(prime))
     if len(truncatable) == 11:
         break
 print(sum(truncatable)) # 748317
