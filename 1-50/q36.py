@@ -6,7 +6,6 @@ for i in range(1, 1000):
     for num in [a, b]:
         binary = bin(num)[2:]
         if binary == binary[::-1]:
-            print(num)
             palindromes.append(num)
 print(sum(palindromes)) # 872187
 

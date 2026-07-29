@@ -7,7 +7,6 @@ Therefore n must be at most 354294
 """
 
 powers = [x ** 5 for x in range(10)]
-print(powers)
 
 sums = []
 

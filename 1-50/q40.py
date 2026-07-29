@@ -27,5 +27,5 @@ for i in range(1, 1000000):
         current_limit *= 10
         if counter == 7:
             break
-print(product)
+print(product) # 210
 

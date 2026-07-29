@@ -9,6 +9,5 @@ for i in range(10, factorials[9] * 7):
         total += factorials[digit]
     if total == i:
         curious.append(total)
-print(curious)
 print(sum(curious)) # 40730
 
